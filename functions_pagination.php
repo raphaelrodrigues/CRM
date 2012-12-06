@@ -30,6 +30,7 @@
 			$pagina = (int)$_GET['pagina'];
 			} else {
 			$pagina = 1;
+			echo "";
 			}
 		$pagina = max(min($paginas, $pagina), 1);
 		$inicio = ($pagina - 1) * 20;
@@ -39,6 +40,8 @@
 		$sql = "SELECT * FROM `organizacao` WHERE  ((`nome` LIKE '%".$busca."%') OR ('%".$busca."%')) ORDER BY `idOrg` DESC LIMIT ".$inicio.", 20 ";
 		// Executa a consulta
 		$query = mysql_query($sql);
+		
+		
 		
 
 		// ============================================
