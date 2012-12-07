@@ -7,7 +7,7 @@
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
     mysql_select_db(DB_DATABASE, $con);
 	
-	$rs = mysql_query('select nome,tipo from organizacao where nome like "'. mysql_real_escape_string($_REQUEST['term']) .'%"');
+	$rs = mysql_query('select nomeCidade from cidade where nomeCidade like "'. mysql_real_escape_string($_REQUEST['term']) .'%"');
 	
 	
 	
@@ -17,8 +17,8 @@
 		while( $row = mysql_fetch_array($rs, MYSQL_ASSOC) )
 		{
 			$data[] = array(
-				'label' => $row['nome'] .', '. $row['tipo']  ,
-				'value' => $row['nome']
+				'label' => $row['nomeCidade'] ,
+				'value' => $row['nomeCidade']
 			);
 		}
 	}
