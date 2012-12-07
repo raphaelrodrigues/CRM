@@ -137,7 +137,7 @@
                      <ul class="regular-ul2">
                      				<li> <p>Morada</p> Avenida da Republica Braga</li>
 									<li><p>Cidade</p>  Braga</li>
-									
+									<li><p>Site</p><a href="www.ipj.com">www.ipj.com</a></li>
 									<li><p>Descricao</p>Instituto de apoio a jovens </li>
                                     <li><p>Sector de Actividade</p> Apoio Social</li>
 							</ul>
@@ -159,14 +159,32 @@
                             <span class="fr expand-collapse-text initial-expand">Click to expand</span>
                         
                         </div> <!-- end content-module-heading -->
-                        
+
                              <div class="content-module-main cf">
-                                <h1 class="titleH1">Novembro</h1>
+                                <h1 class="titleH1"></h1>
                                         <ul class="regular-ul2">
-                                                <li>Instituto Português da Juventude  dia 30-11-2012 17:00 <p>Faltam 3 dias</p></li>
-                                                <li>ProcterGamble dia 30-11-2012 16:00 <p>Faltam 3 dias</p></li>
-                                                <li>ProcterGamble dia 30-11-2012 17:00<p>Faltam 3 dias</p></li>
-                                                <li>IPJ dia 30-11-2012 15:00<p>Faltam 3 dias</p></li>
+                                                <li><a href="#">Instituto Português da Juventude</a>  10-12-2012 17:00 &nbsp; &nbsp;
+                                                    <a href='editReuniao.php?id=102' ><img   title="Editar"  src="images/icones16x16/pencil.png"></a>
+                                                    <p >Faltam 4 dias</p> 
+                                                 </li>
+                                                 <div class="stripe-separator1"><!--  --></div>
+
+                                                <li><a href="#">EEG</a> 30-12-2012 16:00   &nbsp; &nbsp;
+                                                	<a href='editReuniao.php?id=102' ><img   title="Editar"  src="images/icones16x16/pencil.png"></a>
+                                                    <p >Faltam 24 dias</p>
+                                                 </li>
+                                                 <div class="stripe-separator1"><!--  --></div>
+
+                                                <li><a href="#">EEG</a> dia 30-12-2012 17:00  &nbsp; &nbsp;
+                                                	<a href='editReuniao.php?id=102' ><img   title="Editar"  src="images/icones16x16/pencil.png"></a>
+                                                    <p >Faltam 24 dias</p>
+                                                </li>
+                                               <div class="stripe-separator1"><!--  --></div>
+
+                                                <li><a href="#">IPJ</a> dia 30-12-2012 15:00  &nbsp; &nbsp;
+                                                	<a href='editReuniao.php?id=102' ><img   title="Editar"  src="images/icones16x16/pencil.png"></a>
+                                                    <p >Faltam 24 dias</p>
+                                                </li>
                                         </ul>
                             
                             </div><!--end module main-->

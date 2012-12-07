@@ -2,8 +2,13 @@
 
 		include ('Organizacao.class.php');
 		
+		
+		
+		if( !isset($_POST['nome']) && !isset($_POST['nif']) && !isset($_POST['cidade']) && !isset($_POST['sectorActividade'])){
+				header('Location:editOrganizacao.php?error=2');
+		}
+		
 		$idOrg = $_POST['idOrg'];
-		echo $idOrg;
 		$nome = $_POST['nome'];
 		$telefone = $_POST['telefone'];
 		$cidade = $_POST['cidade'];
@@ -33,8 +38,14 @@
 		$org = new Organizacao( $op );
 		$org->print1();
 	
-		$org->actualiza();
+		$r = $org->actualiza();
 		
+		if( $r == -1) 
+		{
+			header("Location: editOrganizacao.php?error='$idOrg'");
+		}
+		else
+			header('Location: entidade.php?sucess=');
 		
 		echo $org->getNome() ."  TIPO ".$org->getTipo();
 		

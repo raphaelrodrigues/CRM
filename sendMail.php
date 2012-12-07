@@ -3,9 +3,9 @@
 	include('Mail.class.php');
 	$to = $_POST['to'];
 	$subject = $_POST['subject'];
-	$message = $_POST['message'] ;
+	$message = $_POST['message'];
 	
-	
+	echo $message;
 	$from = "raphaeljr28@gmail.com";
 	$headers = "From:" . $from;
 	

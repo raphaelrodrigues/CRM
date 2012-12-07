@@ -45,6 +45,38 @@
 	}
 	
 	
+	/**
+	** Devolve a lista de todos os mails enviados
+	**/
+	function listaMails()
+	{
+		//procurar processo ja feito
+		$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+        mysql_select_db("teste", $con);
+        $result = mysql_query("select * from mail order by date");
+		 
+		 if( mysql_num_rows($result)!=0)
+		 {
+			while($row = mysql_fetch_array($result))
+			{
+						echo "<tbody>";
+	
+						echo		"<tr>";
+						echo		"<td>".$row['idOrg']."</td>";
+						echo		"<td><a href='#'>".$row['fromM']."</a></td>";
+						echo        "<td>".$row['toM']."</td>";
+						echo        "<td>".$row['subject']."</td>";
+						echo        "<td>".$row['message']."</td>";
+						echo        "<td>".$row['date']."</td>";
+						echo        "<td>".$row['idUser']."</td>";
+						echo		"</tr>";
+			}
+		}
+		
+	
+	}
+	
+	
 	
 	function popUpEliminar($idEntidade)
 	{

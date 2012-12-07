@@ -21,6 +21,7 @@
 			$this->from    = $from;
 			$this->subject = $subject;
 			$this->body    = $body;
+			$this->headers = "";
 			$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 	
 		}
@@ -32,12 +33,15 @@
 		*/
 	
 		function enviar(){
+			
 			$this->addHeader('From: '.$this->from."\r\n");
 			$this->addHeader('Reply-To: '.$this->from."\r\n");
 			$this->addHeader('Return-Path: '.$this->from."\r\n");
 			$this->addHeader('');
 			
+			
 			mail($this->to,$this->subject,$this->body,$this->headers);
+			
 			
 			$this->guardar();
 			
@@ -52,8 +56,10 @@
 		function guardar()
 		{
 			
-			$sql = "INSERT INTO `mail`( `idOrg`, `fromM`, `toM`, `subject`, `message`, `date`, `idUser`) VALUES (16,'$this->from','$this->to','$this->subject','$this->message','2011-10-10',18)";
 			
+			$sql = "INSERT INTO `mail`( `idOrg`, `fromM`, `toM`, `subject`, `message`, `date`, `idUser`) VALUES (40,'$this->from','$this->to','$this->subject','$this->body','2011-10-10',18)";
+			
+			echo $sql,'<br>';
 			$result = $this->mysql->query($sql);
 			
 			if (!$result) {
@@ -69,7 +75,8 @@
 		
 		function getMails()
 		{
-			$result = $this->mysql->query("select * from mail ");
+			$result = $this->mysql->query("select * from mail");
+			
 		}
 		
 		/*

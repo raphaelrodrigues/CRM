@@ -77,6 +77,12 @@
 			
 		</div>
 		
+        <?
+		if( isset($_GET['error']) ){
+			if( $_GET['error'] == 1)
+				echo "<div class='error-box'>Formúlario errado!</div>";
+		}
+	?>
 
 	</div> <!-- end header -->
 	
@@ -149,8 +155,9 @@
                                         
                                           <!--Nif-->
                                         <p>
-                                            <label for="simple-input">NIF</label>
-                                            <input type="text" id="simple-input" name="nif" class="round default-width-input" />
+                                            <label for="simple-input">NIF*</label>
+                                            <input type="text" id="niff" name="nif" class="round default-width-input" onkeyup="verificaNIF(this.value)"/>
+                                            <em id="nif"></em> 
                                         </p>
                                         
                                        
@@ -162,6 +169,7 @@
                                         </p>-->
                                         
                                     </fieldset>
+                                    <br>
                                      <input type="button" value="+ Pessoa Responsável" class="round blue ic-download showResp" />
                                     
                                         <div id="responsavelOrg">
@@ -179,7 +187,7 @@
                                             
                                              <p>
                                                 <label for="simple-input">Email Responsável</label>
-                                                <input type="text" id="simple-input"  name="emailResp" class="round default-width-input" />
+                                                <input type="text" id="emailResp"  name="emailResp" class="round default-width-input" />
                                             </p>
                                         	
                                         
@@ -190,11 +198,21 @@
                             
                             <div class="half-size-column fr">
                             
-                               
+                               			<!--Morada-->
+                                        <p>
+                                            <label for="simple-input">Morada</label>
+                                            <input type="text" id="morada" name="morada" class="round default-width-input" />
+                                        </p>
+                               			<!--Nome-->
+                                        <p>
+                                            <label for="simple-input">Site</label>
+                                            <input type="text" id="site" name="site" class="round default-width-input" />
+                                        </p>
+                                        
                                			<!--sector de actividade com auto complete-->
                                          <p>
                                             <label for="textarea">Sector de actividade*</label>
-                                           <input type="text" id="autocomplete" name= "sectorActividade" class="round default-width-input" />
+                                           <input type="text" id="autocompleteSector" name= "sectorActividade" class="round default-width-input" />
                                         </p>
                                         
                                     	<!--Descricao da empresa-->
@@ -207,14 +225,14 @@
                                         
                                        
                                         
-                                        <div class="stripe-separator"><!--  --></div>
-        
+                                       
+        								<!--
                                         <p>
                                             <label>Checkboxes</label>
                                             <label for="selected-checkbox" class="alt-label"><input type="checkbox" id="selected-checkbox" checked="checked" />A selected checkbox</label>
                                             <label for="unselected-checkbox" class="alt-label"><input type="checkbox" id="unselected-checkbox" />An uselected checkbox</label>
                                         </p>
-        								
+        								-->
                                         
                                        
                                        

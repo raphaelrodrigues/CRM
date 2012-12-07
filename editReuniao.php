@@ -26,7 +26,7 @@
 		include('function.php'); 
 		$idReuniao = $_GET['id'];
 	 	$reuniao =  getReuniao( $idReuniao );
-		echo $reuniao->getIdReuniao();
+		//echo $reuniao->getIdReuniao();
 	  
 	?>
 	<!-- TOP BAR -->
@@ -191,6 +191,8 @@
                                     </fieldset>
                                 
                                 </form>
+                               <input type="button"  value="Cancelar" class="round blue ic-cancel" onClick="cancelBox()"/>
+
                                 
                             </div> <!-- end half-size-column -->
                     

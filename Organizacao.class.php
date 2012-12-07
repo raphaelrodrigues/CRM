@@ -2,30 +2,12 @@
 	require_once('connect.php');
 	class Organizacao
 	{
-		/*
-		private $idOrg;
-		private $tipo;
-		private $nome;
-		private $nif;
-		private $cidade;
-		private $telefone;
-		private $email;
-		private $morada;
-		private $sectorActividade;
-		private $descricao;
-		private $nomeResp;
-		private $contactoResp;
-		private $mailResp;
-		private $idUtilizador;
-		private $dataCriacao;
-		private $activo;
-		private $mysql;
-		*/
 		private $data = array();
 		private $mysql;
 		
 		function __construct( $row )
 		{
+			
 			$this->data = $row;
 			$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 			
@@ -77,6 +59,11 @@
 		{
 			return $this->data['sectorActividade'];
 		}
+		
+		public function getSite()
+		{
+			return $this->data['site'];
+		}
 		public function getDescricao()
 		{
 			return $this->data['descricao'];
@@ -101,6 +88,13 @@
 		}
 		
 		
+		
+		/**SETS*/
+		
+		public function setNif( $nif )
+		{
+			$this->data['nif'] = $nif;
+		}
 		/**
 		** Devolve um objecto a partir de um array com 
 		** toda a info da class
@@ -144,18 +138,46 @@
 			echo $this->data['idUtilizador'].'<br>';
 			echo $this->data['dataCriacao'].'<br>';
 		}
+		
+		/*
+		** verifica se nif ja existe
+		*/
+		
+		public function verificaNif()
+		{
+			$result = $this->mysql->query("select nif from organizacao");
+			
+			while( $row=$result->fetch_array(MYSQLI_ASSOC) )
+			{
+					if( $row['nif'] === $this->data['nif'] )
+						return 1;
+			}
+			
+			return 0;
+			
+			
+		}
+		
+		public function verificaCampos()
+		{
+			if( $this->data['nome'] != "" && $this->data['nif'] != "" && $this->data['cidade'] != "" && $this->data['sectorActividade'] != "")
+				return 0;
+			else
+				return -1;
+		}
+		
 		/*
 		** Insere nova organizacao na BD
 		*/
 		public function insere()
 		{
-						
-			$result = $this->mysql->query("INSERT INTO `organizacao`( `tipo`, `nome`, `nif`, `cidade`, `telefone`, `email`, `morada`, `sectorActividade`, `descricao`, `responsavel`, `contactoResponsavel`, `mailResponsavel`, `username`, `dataCriacao`) VALUES (4,'".$this->data['nome']."','".$this->data['nif']."','".$this->data['cidade']."','".$this->data['telefone']."','".$this->data['email']."','".$this->data['morada']."','".$this->data['sectorActividade']."','".$this->data['descricao']."','".$this->data['nomeResp']."','".$this->data['contactoResp']."','".$this->data['emailResp']."','a','a')");			
 			
+			if( $this->verificaCampos() == -1)
+				return -1;
 			
-				
-			if (!$result) {
-   				 die('Invalid query: ' . mysql_error());
+			$result = $this->mysql->query("INSERT INTO `organizacao`( `tipo`, `nome`, `nif`, `cidade`, `telefone`, `email`, `morada`,`site`, `sectorActividade`, `descricao`, `nomeResp`, `contactoResp`, `mailResp`, `idUtilizador`, `dataCriacao`) VALUES (4,'".$this->data['nome']."','".$this->data['nif']."','".$this->data['cidade']."','".$this->data['telefone']."','".$this->data['email']."','".$this->data['morada']."','".$this->data['site']."','".$this->data['sectorActividade']."','".$this->data['descricao']."','".$this->data['nomeResp']."','".$this->data['contactoResp']."','".$this->data['emailResp']."','a','".$this->data['dataCriacao']."')");			
+			
+			if ( !$result ) {
 				 return -1;
 			}
 			return 0;

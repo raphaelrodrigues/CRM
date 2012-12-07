@@ -152,29 +152,7 @@ $(document).ready(function() {
 				return false;
 		});
 	
-	$('.error-box2').click(function(){
-		
-		alert("cenas");
-		$("#confirmOverlay").css("display","block");
-
-		$.confirm({
-			'title'		: 'Delete Confirmation',
-			'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
-			'buttons'	: {
-				'Yes'	: {
-					'class'	: 'blue',
-					'action': function(){
-						$("#confirmOverlay").css("display","none");
-					}
-				},
-				'No'	: {
-					'class'	: 'gray',
-					'action': function(){$("#confirmOverlay").css("display","none");}	// Nothing to do in this case. You can as well omit the action property.
-				}
-			}
-		});
-
-	});
+	
 	
 	/**
 	** AUTOCOMPLETES 
@@ -189,14 +167,25 @@ $(document).ready(function() {
 	//form da reuniao (campo organizacao)
 	$( "#autocompleteReOrg" ).autocomplete( {
 			source:"suggest_organizacao.php",
-			 minLength:2
+			minLength:1,
+			 select: function(event, ui) {
+				window.location = ui.item.url;
+			}
 	});
 	
 	//form da organizacao campo da cidade
 	$( "#autocompleteOrCidade" ).autocomplete( {
 			source:"suggest_cidade.php",
-			 minLength:2
+			 minLength:1
 	});
+	
+	//form da organizacao campo da cidade
+	$( "#autocompleteSector" ).autocomplete( {
+			source:"suggest_sectorActividade.php",
+			 minLength:0
+	});
+	
+	$('.styledselect_form_1').selectbox({ inputClass: "styledselect_form_1" });
 	
 	
 	
@@ -276,12 +265,16 @@ $(document).ready(function() {
 	{
 		
 		var nome = document.forms["formOrg"]["nome"];
-
-		
 		var email = document.forms["formOrg"]["email"];
 		var sectorActividade = document.forms["formOrg"]["sectorActividade"];
 		var cidade = document.forms["formOrg"]["cidade"];
+		var nif = document.forms["formOrg"]["nif"];
 		
+		var nifConfirm = document.getElementById('nif');
+		
+		var emailResp = document.forms["formOrg"]["emailResp"];
+		
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var f = 0;
 		
 		if( nome.value === ""){
@@ -303,15 +296,45 @@ $(document).ready(function() {
 			sectorActividade.className += " error-input";
 			$("<em>  Sector de Actividade inválida </em>").insertAfter(sectorActividade);
 		}
+		
+		if( nif.value === "")
+		{
+			f = 1;
+			nif.className += " error-input";
+			$("<em>  NIF invalido </em>").insertAfter(nif);
+		}
+		
 		if(email.value != ""){
 			
-			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			
 			if(reg.test(email.value) == false) {
 				  email.className += " error-input";
 				  $("<em>  Email invalido </em>").insertAfter(email);
 				  f = 1;
 			   }
 		}
+		
+		if( emailResp.value != "")
+		{
+			if(reg.test(emailResp.value) == false) {
+				  emailResp.className += " error-input";
+				  $("<em>  Email invalido </em>").insertAfter(emailResp);
+				  f = 1;
+			 }
+		}
+		
+		
+		
+		if( nifConfirm.innerHTML.length === 10){
+			nif.className += " error-input";
+			$("<em> Nif ja existente </em>").insertAfter(nif);
+
+			f = 1;
+		}
+		
+		
+		
+		
 		
 		if(f == 1){
 			return false;
@@ -609,12 +632,12 @@ $(document).ready(function() {
 })(jQuery);
 
 
-	function showHint(str)
+	function verificaNIF(str)
 	{
 		var xmlhttp;
 		if (str.length==0)
 		  { 
-		  document.getElementById("autocomplete").innerHTML="";
+		  document.getElementById("nif").innerHTML="";
 		  return;
 		  }
 		if (window.XMLHttpRequest)
@@ -629,9 +652,9 @@ $(document).ready(function() {
 		  {
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
-			document.getElementById("autocomplete").innerHTML=xmlhttp.responseText;
+			document.getElementById("nif").innerHTML=xmlhttp.responseText;
 			}
 		  }
-		xmlhttp.open("GET","getuserAJAX.php?q="+str,true);
+		xmlhttp.open("GET","verificaNIF.php?q="+str,true);
 		xmlhttp.send();
 	}

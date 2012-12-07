@@ -17,6 +17,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	<script src="js/script.js"></script>  
+	<script src="js/jquery.selectbox-0.5_style_2.js" type="text/javascript"></script>
+
+
 </head>
 <body>
 
@@ -43,12 +46,12 @@
 			</ul> <!-- end nav -->
 
 					
-			<form action="#" method="POST" id="search-form" class="fr">
-				<fieldset>
-					<input type="text" id="search-keyword" class="round button dark ic-search image-right" placeholder="Search..." />
-					<input type="hidden" value="SUBMIT" />
-				</fieldset>
-			</form>
+			<form action="pesquisa.php" method="GET" id="search-form" class="fr">
+                    <fieldset>
+                   	 <input  id="autocompleteReOrg" title="type &quot;a&quot;" type="text" name="consulta" class="round button dark ic-search image-right" placeholder="Search...">
+                        <input type="hidden" value="SUBMIT" />
+                    </fieldset>
+                </form>
 
 		</div> <!-- end full-width -->	
 	
@@ -81,19 +84,38 @@
 	<div id="content">
 		
         
-      <form action="#" method="POST" id="search-form" >
-       <fieldset>
-       	<input  id="autocompleteSearch" title="type &quot;a&quot;" type="text" name="city" class="round button dark ic-search image-right" placeholder="Search...">
-        <input type="hidden" value="SUBMIT" />
-       </fieldset>
-       </form>
+      <div id="pesquisa">
+          <form action="#" method="POST" id="search-form" >
+           <fieldset>
+            <input  id="autocompleteSearch" title="type &quot;a&quot;" type="text" name="city" class="round button dark ic-search image-right" placeholder="Search...">
+            
+         
+                  
+             <input type="hidden" value="SUBMIT" />
+           </fieldset>
+        </form>
+        
+        
+        
+             
+       		
+        </div><!--end of pesuisa-->
+        
+        
+         <select  class="styledselect_form_1">
+                        <option value="">All</option>
+                        <option value="">Products</option>
+                        <option value="">Categories</option>
+                        <option value="">Clients</option>
+                        <option value="">News</option>
+                    </select>
 		<div class="page-full-width cf">
 
 			<div class="content-module">
 			
 				<div class="content-module-heading cf">
 				
-					<h3 class="fl">Full width page</h3>
+					<h3 class="fl">Resultados</h3>
 					<span class="fr expand-collapse-text">Click to collapse</span>
 					<span class="fr expand-collapse-text initial-expand">Click to expand</span>
 				
@@ -101,55 +123,17 @@
 				
                 <div class="content-module-main">
 					
-						<table id="tabelaEntidades">
 						
-							<thead>
-						
-								<tr onClick="return false">
-									<th> </th>
-									<th>Name</th>
-                                    <th>Tipo</th>
-									<th>Contacto</th>
-									<th>Email</th>
-									<th>Actions</th>
-								</tr>
-							
-							</thead>
-	
-							<tfoot>
-							
-								<tr>
-								
-									<td colspan="5" class="table-footer">
-									
-										<label for="table-select-actions">With selected:</label>
-	
-										<select id="table-select-actions">
-											<option value="option1">Delete</option>
-											<option value="option2">Export</option>
-											<option value="option3">Archive</option>
-										</select>
-										
-										<a href="#" class="round button blue text-upper small-button">Apply to selected</a>	
-	
-									</td>
-									
-								</tr>
-							
-							</tfoot>
-							
-							<tbody>
 				
 							<? include ('functions_pagination.php'); paginateOrganizacao(); ?>
-                            
-                            </tbody>
-							
-						</table>
-					
+
+                                
+                                
 					</div> <!-- end content-module-main -->
 				
 				</div> <!-- end content-module -->
-	
+		
+        		
 	<!-- FOOTER -->
 	<div id="footer">
 

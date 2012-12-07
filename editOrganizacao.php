@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -19,13 +21,18 @@
 <body>
 
 	<? 
-		
 		include('function.php'); 
-		
+		if( !isset($_GET['q']) ){
+			//header("Location : dashboard.php?sucess=1");
+			//exit();
+		}
+			
 		$idO = $_GET['q'];
 		
 		
 	    $org = getOrganizacao($idO);
+		
+		
 		
 		?>
 	<!-- TOP BAR -->
@@ -170,6 +177,7 @@
                                         </p>-->
                                         
                                     </fieldset>
+                                    <br>
                                      <input type="button" value="+ Pessoa Responsável" class="round blue ic-download showResp" />
                                     
                                         <div id="responsavelOrg">
@@ -198,7 +206,10 @@
                             
                             <div class="half-size-column fr">
                             
-                               
+                               			<p>
+                               				<label for="simple-input">Site</label>
+                                          <input type="text" id="full-width-input" name="email" class="round full-width-input" value='<? echo $org->getSite(); ?>'/>
+                                		</p>
                                         <!--sector de actividade com auto complete-->
                                          <p>
                                             <label for="textarea">Sector de actividade</label>
@@ -207,7 +218,7 @@
                                     	<!--Descricao da empresa-->
                                          <p>
                                             <label for="textarea">Descrição</label>
-                                            <textarea id="textarea"  name= "descricao" class="round full-width-textarea" value='<? echo $org->getDescricao(); ?>'></textarea>
+                                            <textarea id="textarea"  name= "descricao" class="round full-width-textarea" ><? echo $org->getDescricao(); ?></textarea>
                                             <em>Pequena descrição da empresa</em>								
                                         </p>
                                       
@@ -235,7 +246,8 @@
                                     </fieldset>
                                 
                                 </form>
-                                
+                                <input type="button"  value="Cancelar" class="round blue ic-cancel" onClick="cancelBox()"/>
+
                             </div> <!-- end half-size-column -->
                     
                         </div> <!-- end content-module-main -->

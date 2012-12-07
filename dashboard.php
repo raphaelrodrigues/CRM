@@ -31,6 +31,8 @@
 	
 	popUpInfoEntidade();
 	//popUpFormulario(); 
+	
+	
 	?>
 	<!-- TOP BAR -->
    
@@ -222,9 +224,9 @@
 			
 				
             	
-                <form action="#" method="POST" id="search-form" class="fr">
+                <form action="pesquisa.php" method="GET" id="search-form" class="fr">
                     <fieldset>
-                        <input  id="autocompleteSearch" title="type &quot;a&quot;" type="text" name="city" class="round button dark ic-search image-right" placeholder="Search...">
+                        <input  id="autocompleteReOrg" title="type &quot;a&quot;" type="text" name="consulta" class="round button dark ic-search image-right" placeholder="Search...">
                         <input type="hidden" value="SUBMIT" />
                     </fieldset>
                 </form>
@@ -251,7 +253,8 @@
 			<!--<a href="#" id="company-branding-small" class="fr"><img src="images/" alt="" width="215" /></a>-->
             
 		</div> <!-- end full-width -->	
-        
+       
+     
 
 	</div> <!-- end header -->
 	
@@ -260,9 +263,11 @@
 	<!-- MAIN CONTENT -->
 	<div id="content">
     <?
-		if( isset($_GET['q']) ){
-		echo "<div class='confirmation-box round'>This is a confirmation box. It will resize based on it’s contents.</div>";
-	}?>
+		if( isset($_GET['sucess']) ){
+			if( $_GET['sucess'] == 1)
+				echo "<div class='confirmation-box round'>Informação inserida com sucesso.</div>";
+		}
+	?>
 		<div class="page-full-width cf">
 
 			<div class="side-menu fl">
