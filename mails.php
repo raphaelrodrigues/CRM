@@ -83,7 +83,7 @@
 			
 				<div class="content-module-heading cf">
 				
-					<h3 class="fl">Lista de utilizadores</h3>
+					<h3 class="fl">Lista de Emails enviados</h3>
 					<span class="fr expand-collapse-text">Click to collapse</span>
 					<span class="fr expand-collapse-text initial-expand">Click to expand</span>
 				

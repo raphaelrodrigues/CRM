@@ -25,9 +25,9 @@
 		
 		include('function.php'); 
 		$idReuniao = $_GET['id'];
+		
 	 	$reuniao =  getReuniao( $idReuniao );
-		//echo $reuniao->getIdReuniao();
-	  
+	
 	?>
 	<!-- TOP BAR -->
 	<div id="top-bar">
@@ -91,9 +91,17 @@
 	
 	
 	
+    
+   
 	<!-- MAIN CONTENT -->
 	<div id="content">
-		
+		 <?
+			if( $reuniao == NULL){
+				echo '<div class="error-box round">Esta Reunião nunca existiu!!.</div>';
+				return;
+			}
+		?>
+       
 		<div class="page-full-width cf">
 			
 			<div class="side-content-form fr">
@@ -105,7 +113,7 @@
                     
                         <div class="content-module-heading cf">
                         
-                            <h3 class="fl">Editar Reunião</h3>
+                            <h3 class="fl">Editar Reunião </h3>
                             <span class="fr expand-collapse-text">Click to collapse</span>
                             <span class="fr expand-collapse-text initial-expand">Click to expand</span>
                         
@@ -116,15 +124,15 @@
                     
                             <div class="half-size-column fl">
                             
-                                <form action="updateReuniao.php" method="post">
+                                <form name="updateReuniao" action="updateReuniao.php" method="post" onSubmit="return confirmUpdateRe()">
                                 
                                     <fieldset>
                                     
-                                    
+                                    	 <input  type="hidden" value='<? echo $reuniao->getIdOrg();?>' name = "idOrg" >
                                     	<!--organizaçao a adicionar a reuniao-->
                                         <p>
                                             <label for="simple-input">Organização</label>
-                                            <input  type="text" id="autocompleteReOrg"   name = "nome" class="round default-width-input" value= '<? echo 'NOME'; ?>'>
+                                            <input  type="text" id="autocompleteReOrg"   name = "nome" class="round default-width-input" value= '<? echo $reuniao->getNomeOrg(); ?>' readonly>
                                         </p>
                                     	<!--Nome-->
                                         <p>
@@ -138,12 +146,7 @@
                                         	 <input type="text" id="datepicker" name="data" class="round default-width-input"  value= '<? echo  $reuniao->getData(); ?>'/>
                                         </p>
  
-                                        <!--Participantes com estilo de tags-->
-                                        <p>
-                                            <label for="simple-input">Participantes</label>
-                                          	 <input type="text" id="full-width-input" name = "participantes"  class="round full-width-input"  value= '<? echo $reuniao->getParticipantes(); ?>'/>
-                                        </p>
-                                        
+                                                                               
                                         <!--Telefone-->
                                         <p>
                                             <label for="full-width-input">Objectivo</label>
@@ -151,7 +154,7 @@
                                             <em>Descriçao</em>								
                                         </p>
         
-        
+        							</fieldset>
         								
                                        
                             
@@ -160,38 +163,35 @@
                             <div class="half-size-column fr">
                             
                               
+                                       <fieldset>
                                        
+                                        <!--Participantes com estilo de tags-->
+                                        <p>
+                                            <label for="simple-input">Participantes</label>
+                                          	 <input type="text" id="participantesS" name = "participantes"  class="round full-width-input"  value= '<? echo $reuniao->getParticipantes(); ?>'/>
+                                        </p>
+
                                     	<!--Descricao da empresa-->
                                          <p>
                                             <label for="textarea">Feedback</label>
-                                            <input type="text" id="full-width-input" name = "feedback" class="round full-width-input" value= '<? echo $reuniao->getFeedback(); ?>'/>
+                                            <input type="text" id="feedback" name = "feedback" class="round full-width-textarea" value= '<? echo $reuniao->getFeedback(); ?>'/>
                                             <em>Pequena descrição com feedback da reunião</em>								
                                         </p>
-                                      
-                                        
-                                       
-                                        
-                                        <div class="stripe-separator"><!--  --></div>
-        
-                                        <p>
-                                            <label>Checkboxes</label>
-                                            <label for="selected-checkbox" class="alt-label"><input type="checkbox" id="selected-checkbox" checked="checked" />A selected checkbox</label>
-                                            <label for="unselected-checkbox" class="alt-label"><input type="checkbox" id="unselected-checkbox" />An uselected checkbox</label>
-                                        </p>
-        								
-                                        
+                           
                                        	<input type="hidden" name ="idReuniao" value='<? echo $reuniao->getIdReuniao(); ?>' class="round blue ic-right-arrow" />
                                        
         
         
                                         <div class="stripe-separator"><!--  --></div>
         
-                                        <input type="submit" value="Actualizar Reuniao" class="round blue ic-right-arrow" />
+                                        <input type="submit" value="Actualizar Reuniao" class="round blue ic-right-arrow" /><br><br>
                                         
                                     </fieldset>
                                 
                                 </form>
-                               <input type="button"  value="Cancelar" class="round blue ic-cancel" onClick="cancelBox()"/>
+                               <input type="button"  value="Cancelar" class="round blue ic-cancel" onClick="cancelBox()"/><br><br>
+                               <input type="button" id="<? echo $reuniao->getIdReuniao(); ?>" value="Apagar Reunião" class="round blue ic-cancel" onClick="deleteBox(this.id)"/>
+
 
                                 
                             </div> <!-- end half-size-column -->

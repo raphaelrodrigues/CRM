@@ -1,3 +1,8 @@
+<?
+	include ('function.php');
+	include ('functions_pagination.php');
+	$username = verificaLogin();
+	?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,7 +13,7 @@
 	<!-- Stylesheets -->
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet'>
 	<link rel="stylesheet" href="css/style.css">
-    <link href="css/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 	
 	<!-- Optimize for mobile devices -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,41 +22,53 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	<script src="js/script.js"></script>  
-	<script src="js/jquery.selectbox-0.5_style_2.js" type="text/javascript"></script>
+   	<script src="js/jquery-ui-timepicker-addon.js"></script>  
 
 
 </head>
 <body>
-
+<? popUpInfoEntidade();?>
 	<!-- TOP BAR -->
 	<div id="top-bar">
 		
 		<div class="page-full-width cf">
 
-			<ul id="nav" class="fl">
-	
-				<li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Go to website</a></li>
-				<li class="v-sep"><a href="#" class="round button dark menu-user image-left">Logged in as <strong>admin</strong></a>
-					<ul>
-						<li><a href="#">My Profile</a></li>
-						<li><a href="#">User Settings</a></li>
-						<li><a href="#">Change Password</a></li>
-						<li><a href="#">Log out</a></li>
-					</ul> 
-				</li>
-			
-				<li><a href="#" class="round button dark menu-email-special image-left">3 new messages</a></li>
-				<li><a href="#" class="round button dark menu-logoff image-left">Log out</a></li>
-				
-			</ul> <!-- end nav -->
+		 <ul id="nav" class="fl">
+        
+                    <li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Home Page</a></li>
+                    <li class="v-sep"><a href="#" class="round button dark menu-user image-left">Logged in as <strong><? echo $username;?></strong></a>
+                        <ul>
+                            <li><a href="profile.php" >My Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                            <!--<li><a href="#">User Settings</a></li>-->
+                            <? if($username == 'admin') {
+                           		echo "<li><a href='painel.php'>Lista de users</a></li>";
+                            	}
+                             ?>
+                            <li><a href="logout.php">Log out</a></li>
+                        </ul> 
+                    </li>
+                
+                   <li class="v-sep"><a href="#" class="round button dark menu-new-special image-left">Menu</a>
+                        <ul>
+                            <li><a href="nova_organizacao.php">Adicionar Entidade</a></li>
+                            <li><a href="nova_reuniao.php">Adicionar Reunião</a></li>
+                            <li><a href="#">Adicionar Evento</a></li>
+                        </ul> 
+                    </li>
+                    <li class="v-sep"><a href="pesquisa.php" class="round button dark menu-pesquisa image-left">Pesquisar</a></li>
+                    
+                   
+
+                    <a href="calendario.php" class="round button dark menu-cal image-left">Calendário</a></li>
+                </ul> <!-- end nav -->
 
 					
 			<form action="pesquisa.php" method="GET" id="search-form" class="fr">
                     <fieldset>
-                   	 <input  id="autocompleteReOrg" title="type &quot;a&quot;" type="text" name="consulta" class="round button dark ic-search image-right" placeholder="Search...">
+                        <input  id="autocompleteReOrg" title="type &quot;a&quot;" type="text" name="consulta" class="round button dark ic-search image-right" placeholder="Search...">
                         <input type="hidden" value="SUBMIT" />
                     </fieldset>
-                </form>
+            </form>
 
 		</div> <!-- end full-width -->	
 	
@@ -84,33 +101,27 @@
 	<div id="content">
 		
         
-      <div id="pesquisa">
-          <form action="#" method="POST" id="search-form" >
+      <div id="pesquisa" class="pesquisa">
+          <form name="formPesq"  method="POST" id="search-form" >
            <fieldset>
-            <input  id="autocompleteSearch" title="type &quot;a&quot;" type="text" name="city" class="round button dark ic-search image-right" placeholder="Search...">
-            
-         
-                  
-             <input type="hidden" value="SUBMIT" />
-           </fieldset>
-        </form>
-        
-        
-        
-             
-       		
-        </div><!--end of pesuisa-->
-        
-        
-         <select  class="styledselect_form_1">
-                        <option value="">All</option>
-                        <option value="">Products</option>
-                        <option value="">Categories</option>
-                        <option value="">Clients</option>
-                        <option value="">News</option>
-                    </select>
-		<div class="page-full-width cf">
+            <input  id="autocompletePesquisa" title="type &quot;a&quot;" type="text" name="consulta" class="round button dark ic-search image-right" placeholder="Search...">
 
+         
+	         <select id="opt" name="opt" class="styled-select">
+	                        <option value="Nome">Nome</option>
+	                        <option value="SectorActividade">Sector Actividade</option>
+	                        <option value="Cidade">Cidade</option>
+	                        <option value="">Clients</option>
+	                        <option value="">News</option>
+	          </select>
+	          <input  type="button" value="Pesquisar" id="submitP" class="round blue ic-right-arrow"/>
+	          </fieldset>
+	         </form>
+           
+           </div><!--end of pesuisa-->
+	</div>
+     
+		<div class="page-full-width cf">
 			<div class="content-module">
 			
 				<div class="content-module-heading cf">
@@ -123,9 +134,10 @@
 				
                 <div class="content-module-main">
 					
-						
-				
-							<? include ('functions_pagination.php'); paginateOrganizacao(); ?>
+					<?  
+								paginateOrganizacao();
+							
+					?>
 
                                 
                                 

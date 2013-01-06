@@ -120,14 +120,19 @@
                                     	<!--Nome-->
                                         <p>
                                             <label for="simple-input">Nome da organização*</label>
-                                            <input type="text" id="nome" name="nome" class="round default-width-input" />
+                                            <input type="text" id="nome" name="nome" class="round default-width-input" onkeyup="verificaNome(this.value)"/>
+                                            <em id="nomeOrg"> </em>
                                         </p>
                                         
                                         <!--Tipo corporate/non corporate-->
+                                        
+                                        
+                                        
                                          <p>
                                             <label>Tipo</label>
-                                            <label for="selected-radio" class="alt-label"><input type="radio" id="selected-radio" checked="checked" />Corporate</label>
-                                            <label for="unselected-radio" class="alt-label"><input type="radio" id="unselected-radio" />Non-Corporate</label>
+                                            <input type="radio" id="radio" name="radio" value="1" /><label for="selected-radio" class="alt-label">Corporate</label>
+                                            
+                                            <input type="radio" id="radio" name="radio" value="2" checked="checked" /><label for="unselected-radio" class="alt-label">Non-Corporate</label>
                                         </p>
                                         
                                        
@@ -222,18 +227,7 @@
                                             <em>Pequena descrição da empresa</em>								
                                         </p>
                                       
-                                        
-                                       
-                                        
-                                       
-        								<!--
-                                        <p>
-                                            <label>Checkboxes</label>
-                                            <label for="selected-checkbox" class="alt-label"><input type="checkbox" id="selected-checkbox" checked="checked" />A selected checkbox</label>
-                                            <label for="unselected-checkbox" class="alt-label"><input type="checkbox" id="unselected-checkbox" />An uselected checkbox</label>
-                                        </p>
-        								-->
-                                        
+                                                                               
                                        
                                        
         

@@ -1,3 +1,7 @@
+<?php require_once('function.php');
+		verificaLogin();
+		$username = $_SESSION['user'];
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -29,7 +33,7 @@
 
 			<ul id="nav" class="fl">
 	
-				<li class="v-sep"><a href="../../crm/dashboard.php" class="round button dark ic-left-arrow image-left">Home Page</a></li>
+				<li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Home Page</a></li>
 				<li class="v-sep"><a href="#" class="round button dark menu-user image-left">Logged in as <strong>admin</strong></a>
 					<ul>
 						<li><a href="#">My Profile</a></li>
@@ -75,7 +79,7 @@
 	
 			<!-- Change this image to your own company's logo -->
 			<!-- The logo will automatically be resized to 30px height. -->
-			<a href="#" id="company-branding-small" class="fr"><img src="images/" alt=""></a>
+			<a href="#" id="company-branding-small" class="fr"></a>
 			
 		</div>
 		
@@ -110,19 +114,20 @@
                             <div class="half-size-column fl">
                             
                                 <form name = "formReun" action="insereReuniao.php" method="post"  onsubmit="return validaFormReuniao();">
-                                
+                                <? echo $username;?>
                                     <fieldset>
-                                    
-                                    
+                                    	 <input type="hidden"  name="user" value="<? echo $username; ?>" />
                                     	<!--organizaçao a adicionar a reuniao-->
                                         <p>
                                             <label for="simple-input">Organização*</label>
-                                            <input  type="text" id="autocompleteReOrg"   name = "nome" class="round default-width-input" >
+                                            <input  type="text" id="autocompleteReOrg2"   name="nome" class="round default-width-input" onkeyup="verificaNome(this.value)" >
+                                            <em id="nomeOrg"></em> 
                                         </p>
                                     	<!--Nome-->
                                         <p>
-                                            <label for="simple-input">Assunto</label>
+                                            <label for="simple-input">Assunto*</label>
                                             <input type="text" id="simple-input" name = "assunto" class="round default-width-input" />
+                                            <em id="assunto"></em>
                                         </p>
                                         
                                         <!--Tipo corporate/non corporate-->
@@ -140,10 +145,10 @@
                                         <!--Obkectivo-->
                                         <p>
                                             <label for="full-width-input">Objectivo</label>
-                                            <input type="text" id="full-width-input" name = "objectivo" class="round full-width-input"/>
+                                            <input type="text" id="full-width-input" name = "objectivo" class="round default-width-input"/>
                                             <em>Descriçao</em>								
                                         </p>
-        
+       								 </fieldset>
         
         								
                                        
@@ -152,39 +157,26 @@
                             
                             <div class="half-size-column fr">
                             
+                            		<fieldset>
                               			<!--Participantes com estilo de tags-->
                                         <p>
                                             <label for="simple-input">Participantes</label>
-                                          	 <input type="text" id="full-width-input" name = "participantes"  class="round full-width-input"/>
+                                          	 <input type="text" id="participantesS" name = "participantes"  class="round full-width-input"/>
                                         </p>
                                        
                                     	<!--Descricao da empresa-->
                                          <p>
                                             <label for="textarea">Feedback</label>
-                                            <input type="text" id="full-width-input" name = "feedback" class="round full-width-textarea" maxlength="255"/>
+                                            <textarea id="textarea"  name= "feedback" class="round full-width-textarea" maxlength="255"></textarea>
                                             <em>Pequena descrição com feedback da reunião</em>								
                                         </p>
                                         
                                       
-                                        
-                                       
-                                        
-                                        <div class="stripe-separator"><!--  --></div>
-        
-                                        <p>
-                                            <label>Checkboxes</label>
-                                            <label for="selected-checkbox" class="alt-label"><input type="checkbox" id="selected-checkbox" checked="checked" />A selected checkbox</label>
-                                            <label for="unselected-checkbox" class="alt-label"><input type="checkbox" id="unselected-checkbox" />An uselected checkbox</label>
-                                        </p>
-        								
-                                        
-                                       
-                                       
         
         
                                         <div class="stripe-separator"><!--  --></div>
         
-                                        <input type="submit" value="Adicionar Reunião" class="round blue ic-right-arrow" />
+                                        <input type="submit" value="Adicionar Reunião" class="round blue ic-right-arrow" /><br><br>
                                      
                                         
                                     </fieldset>

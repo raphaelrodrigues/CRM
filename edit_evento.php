@@ -77,7 +77,7 @@
 	
 			<!-- Change this image to your own company's logo -->
 			<!-- The logo will automatically be resized to 30px height. -->
-			<a href="#" id="company-branding-small" class="fr"><img src="images/" alt="" "/></a>
+			<a href="#" id="company-branding-small" class="fr"><img src="images/" alt="" /></a>
 			
 		</div> 
 		<!-- end full-width -->	

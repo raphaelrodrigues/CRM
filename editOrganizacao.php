@@ -1,5 +1,17 @@
-
-
+<? 
+		include('function.php'); 
+		if( !isset($_GET['id']) ){
+			//header("Location : dashboard.php?sucess=1");
+			//exit();
+		}
+			
+		$idO = $_GET['id'];
+		
+		
+	    $org = getOrganizacao($idO);
+		
+		
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,21 +32,7 @@
 </head>
 <body>
 
-	<? 
-		include('function.php'); 
-		if( !isset($_GET['q']) ){
-			//header("Location : dashboard.php?sucess=1");
-			//exit();
-		}
-			
-		$idO = $_GET['q'];
-		
-		
-	    $org = getOrganizacao($idO);
-		
-		
-		
-		?>
+
 	<!-- TOP BAR -->
 	<div id="top-bar">
 		
@@ -52,7 +50,7 @@
                            		echo "<li><a href='painel.php'>Lista de users</a></li>";
                             	}
                         ?>
-						<li><a href="#">Log out</a></li>
+                     <li><a href="logout.php">Log out</a></li>
 					</ul> 
 				</li>
 			
@@ -100,6 +98,12 @@
 	<!-- MAIN CONTENT ----------------------------------->
 	<div id="content">
 		
+         <?
+			if( $org == NULL){
+				echo '<div class="error-box round">Esta Organização nunca existiu!!.</div>';
+				return;
+			}
+		?>
 		<div class="page-full-width cf">
 			
 			<div class="side-content-form fr">
@@ -111,7 +115,7 @@
                     
                         <div class="content-module-heading cf">
                         
-                            <h3 class="fl">Editar Organização <? echo "Nome"?></h3>
+                            <h3 class="fl">Editar Organização <? echo $org->getNome();?></h3>
                             <span class="fr expand-collapse-text">Click to collapse</span>
                             <span class="fr expand-collapse-text initial-expand">Click to expand</span>
                         
@@ -133,10 +137,24 @@
                                         </p>
                                         
                                         <!--Tipo corporate/non corporate-->
-                                         <p>
+                                        <p>
                                             <label>Tipo</label>
-                                            <label for="selected-radio" class="alt-label"><input type="radio" id="selected-radio" checked="checked" />Corporate</label>
-                                            <label for="unselected-radio" class="alt-label"><input type="radio" id="unselected-radio" />Non-Corporate</label>
+                                           <? if( $org->getTipo() == 1)
+                                             	 echo ' <input type="radio" id="radio" name="radio" value="1" checked="checked"/>'.
+                                            	
+                                            			'<label for="selected-radio" class="alt-label">Corporate</label>'.
+                                            
+                                            			'<input type="radio" id="radio" name="radio" value="2" />'.
+                                            			'<label for="unselected-radio" class="alt-label">Non-Corporate</label>';
+                                            else
+                                            	 echo ' <input type="radio" id="radio" name="radio" value="1" />'.
+                                            	
+                                            			'<label for="unselected-radio" class="alt-label">Corporate</label>'.
+                                            
+                                            			'<input type="radio" id="radio" name="radio" value="2" checked="checked"/>'.
+                                            			'<label for="selected-radio" class="alt-label">Non-Corporate</label>';
+                                            ?>
+                                            		
                                         </p>
                                         
                                        
@@ -180,7 +198,12 @@
                                     <br>
                                      <input type="button" value="+ Pessoa Responsável" class="round blue ic-download showResp" />
                                     
-                                        <div id="responsavelOrg">
+                                    	<? if( $org->getNomeResp() !== '' || $org->getContactoResp() !== '' || $org->getMailResp() !== '' ) 
+										    	
+											
+										
+										?>
+                                        <div id="responsavelOrg" >
                                             <!--Nome-->
                                             <p>
                                                 <label for="simple-input">Nome do Responsável</label>
@@ -225,15 +248,7 @@
                                         
                                        
                                         
-                                        <div class="stripe-separator"><!--  --></div>
-        
-                                        <p>
-                                            <label>Checkboxes</label>
-                                  			<label for="selected-checkbox" class="alt-label"><input type="checkbox" id="selected-checkbox" checked="checked" />A selected checkbox</label>
-                                            <label for="unselected-checkbox" class="alt-label"><input type="checkbox" id="unselected-checkbox" />An uselected checkbox</label>
-                                        </p>
-        								
-                                           <input type="hidden" name="idOrg" class="round default-width-input" value='<? echo $org->getIdOrg(); ?>'/>
+                                        <input type="hidden" name="idOrg" class="round default-width-input" value='<? echo $org->getIdOrg(); ?>'/>
 											
                                        
                                        

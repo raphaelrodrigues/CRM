@@ -1,3 +1,17 @@
+<?php require_once('function.php');
+		verificaLogin();
+		$username = $_SESSION['user'];
+		if( permissoes( $username ) != 1)
+			header('Location: dashboard.php');
+		
+			
+		
+		$user = getUtilizador($username);
+		
+		if( $user == NULL)
+			exit();
+			
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -23,7 +37,8 @@
 	<div id="top-bar">
 		
 		<div class="page-full-width cf">
-
+			
+			
 			<ul id="nav" class="fl">
 	
 				<li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Home Page</a></li>
@@ -79,6 +94,7 @@
 		
 		<div class="page-full-width cf">
 
+			<? checkPainel(); ?>
 			<div class="content-module">
 			
 				<div class="content-module-heading cf">
@@ -98,34 +114,18 @@
 						
 								<tr>
 									<th>Username</th>
-									<th>Email</th>
-                                    <th>Nome</th>
+									<th>Nome</th>
+                                    <th>Email</th>
                                     <th>Data de Registo</th>
+                                    <th>Permissao</th>
                                     <th>Estado</th>
 									<th>Actions</th>
+									
 								</tr>
 							
 							</thead>
 	
 							<tfoot>
-							
-								<tr>
-								
-									<td colspan="5" class="table-footer">
-									
-										<label for="table-select-actions">With selected:</label>
-	
-										<select id="table-select-actions">
-											<option value="option1">Delete</option>
-											<option value="option2">Export</option>
-											<option value="option3">Archive</option>
-										</select>
-										
-										<a href="#" class="round button blue text-upper small-button">Apply to selected</a>	
-	
-									</td>
-									
-								</tr>
 							
 							</tfoot>
 							

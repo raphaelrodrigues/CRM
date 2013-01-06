@@ -6,7 +6,7 @@
 	else
 		$nif = $_GET['q'];
 	
-	$org = new Organizacao();
+	$org = new Organizacao('');
 	
 	$org->setNif( $nif);
 	

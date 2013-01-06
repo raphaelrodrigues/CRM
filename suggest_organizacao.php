@@ -17,7 +17,7 @@
 			$data[] = array(
 				'label' => $row['nome'] ,
 				'value' => $row['nome'],
-				'url' => "entidade.php?q=".$row['idOrg']
+				'url' => "entidade.php?id=".$row['idOrg']
 			);
 		}
 	}

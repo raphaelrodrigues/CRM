@@ -2,13 +2,18 @@
 		
 		include ('Reuniao.class.php');
 		
-		$idReuniao = $_POST['idReuniao'];
-		$nome = $_POST['nome'];
-		$assunto = $_POST['assunto'];
-		$data = $_POST['data'];
-		$participantes = $_POST['participantes'];
-		$objectivo = $_POST['objectivo'];
-		$feedback = $_POST['feedback'];
+		$idReuniao = mysql_real_escape_string($_POST['idReuniao']);
+		$nome = mysql_real_escape_string($_POST['nome']);
+		$idOrg = mysql_real_escape_string($_POST['idOrg']);
+
+				
+		$assunto = mysql_real_escape_string($_POST['assunto']);
+		$data = mysql_real_escape_string($_POST['data']);
+		$hora = mysql_real_escape_string($_POST['hora']);
+		
+		$participantes = mysql_real_escape_string($_POST['participantes']);
+		$objectivo = mysql_real_escape_string($_POST['objectivo']);
+		$feedback = mysql_real_escape_string($_POST['feedback']);
 		/*
 		$idUtilizador = $_POST['contactoResp'];
 		$dataCriacao = $_POST['emailResp'];
@@ -16,7 +21,7 @@
 		
 		
 		
-		echo $idReuniao . "<br>";
+		//echo $idReuniao . "<br>";
 		
 		$data = mysql_real_escape_string($data);
 		$data =  strtotime($data);
@@ -37,16 +42,24 @@
 			);
 			
 		
-		validaFormOrganizacao( $op );
+		//validaFormOrganizacao( $op );
 		
 		
 		$reuniao = new Reuniao( $op );
 		
-		echo $reuniao->getFeedback() . "<br>";
+				
+		 $r = $reuniao->actualiza();
 		
-		$reuniao->actualiza();
 		
-		echo $reuniao->getNome() ."  TIPO ";
 		
-		echo "ACT com sucesso";
+		if( $r == -1) 
+		{
+			header("Location: editReuniao.php?id='$idReuniao'");
+		}
+		else
+		{
+			header("Location: entidade.php?id=$idOrg&sucess=1");
+		}
+		
+		
 	?>

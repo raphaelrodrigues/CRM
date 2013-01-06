@@ -1,3 +1,6 @@
+<?php require_once('function.php');
+		$username = verificaLogin();
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,44 +11,54 @@
 	<!-- Stylesheets -->
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet'>
 	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 	
 	<!-- Optimize for mobile devices -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
 	<!-- jQuery & JS files -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	<script src="js/script.js"></script>  
+   	<script src="js/jquery-ui-timepicker-addon.js"></script> 
 </head>
 <body>
 
-	<? include('function.php'); ?>
+	<? popUpInfoReuniao();  ?>
 	<!-- TOP BAR -->
 	<div id="top-bar">
 		
 		<div class="page-full-width cf">
 
-			<ul id="nav" class="fl">
-	
-				<li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Go to Home Page</a></li>
-				<li class="v-sep"><a href="#" class="round button dark menu-user image-left">Logged in as <strong>admin</strong></a>
-					<ul>
-						<li><a href="#">My Profile</a></li>
-						<li><a href="#">User Settings</a></li>
-						<li><a href="#">Change Password</a></li>
-						<li><a href="#">Log out</a></li>
-					</ul> 
-				</li>
-			
-				<li class="v-sep"><a href="#" class="round button dark menu-new-special image-left">MENU</a>
+			 <ul id="nav" class="fl">
+        
+                    <li class="v-sep"><a href="dashboard.php" class="round button dark ic-left-arrow image-left">Home Page</a></li>
+                    <li class="v-sep"><a href="#" class="round button dark menu-user image-left">Logged in as <strong><? echo $username;?></strong></a>
                         <ul>
-                            <li><a href="formEmpresa.php">Adicionar Entidade</a></li>
-                            <li><a href="#">Adicionar Reunião</a></li>
+                            <li><a href="profile.php" >My Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                            <!--<li><a href="#">User Settings</a></li>-->
+                            <? if($username == 'admin') {
+                           		echo "<li><a href='painel.php'>Lista de users</a></li>";
+                            	}
+                             ?>
+                            <li><a href="logout.php">Log out</a></li>
+                        </ul> 
+                    </li>
+                
+                   <li class="v-sep"><a href="#" class="round button dark menu-new-special image-left">Menu</a>
+                        <ul>
+                            <li><a href="nova_organizacao.php">Adicionar Entidade</a></li>
+                            <li><a href="nova_reuniao.php">Adicionar Reunião</a></li>
                             <li><a href="#">Adicionar Evento</a></li>
                         </ul> 
                     </li>
-				<li><a href="#" class="round button dark menu-logoff image-left">Log out</a></li>
-				
-			</ul> <!-- end nav -->
+                    <li class="v-sep"><a href="pesquisa.php" class="round button dark menu-pesquisa image-left">Pesquisar</a></li>
+                    
+                   
+
+                    <a href="calendario.php" class="round button dark menu-cal image-left">Calendário</a></li>
+                </ul> <!-- end nav -->
+
 
 					
 			<form action="#" method="POST" id="search-form" class="fr">
@@ -85,11 +98,12 @@
 	<!-- MAIN CONTENT -->
 	<div id="content">
 		
+     
 		<div class="page-full-width cf">
 
 			<div class="side-content2 fr">
 			
-				<div class="medium-size-column fl">
+				<div class="medium-size-column fr">
 				
 					<div class="content-module">
 					
@@ -114,7 +128,7 @@
 				
 				</div> <!--end half-size-column-->
 
-				<div class="half-size-column fr">
+				<div class="half-size-column fl">
 				
 					<div class="content-module">
 					
@@ -129,7 +143,7 @@
 						
 						<div class="content-module-main cf">
 					
-                    		<?php listaProximasReunioes( 0 ); ?>
+                    		<?php listaProximasReunioes( 0 , 1); ?>
 							
 							<div class="stripe-separator"><!-- --></div>
 							

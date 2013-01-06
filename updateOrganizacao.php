@@ -1,7 +1,7 @@
 <? 
 
-		include ('Organizacao.class.php');
-		
+		include ('function.php');
+		fazConexao();
 		
 		
 		if( !isset($_POST['nome']) && !isset($_POST['nif']) && !isset($_POST['cidade']) && !isset($_POST['sectorActividade'])){
@@ -9,19 +9,24 @@
 		}
 		
 		$idOrg = $_POST['idOrg'];
-		$nome = $_POST['nome'];
-		$telefone = $_POST['telefone'];
-		$cidade = $_POST['cidade'];
-		$email = $_POST['email'];
-		$nif = $_POST['nif'];
-		$nomeResp = $_POST['nomeResp'];
-		$contactoResp = $_POST['contactoResp'];
-		$emailResp = $_POST['emailResp'];
-		$sectorActividade = $_POST['sectorActividade'];
-		$descricao = $_POST['descricao'];
+		$nome = mysql_real_escape_string($_POST['nome']);
+		$telefone = mysql_real_escape_string($_POST['telefone']);
+		$cidade = mysql_real_escape_string($_POST['cidade']);
+		$email = mysql_real_escape_string($_POST['email']);
+		$nif = mysql_real_escape_string($_POST['nif']);
+		$morada = mysql_real_escape_string($_POST['morada']);
+		$nomeResp = mysql_real_escape_string($_POST['nomeResp']);
+		$contactoResp = mysql_real_escape_string($_POST['contactoResp']);
+		$emailResp = mysql_real_escape_string($_POST['emailResp']);
+		$sectorActividade = mysql_real_escape_string($_POST['sectorActividade']);
+		$descricao = mysql_real_escape_string($_POST['descricao']);
+		$site = mysql_real_escape_string($_POST['site']);
+		$corporate = mysql_real_escape_string($_POST['radio']);
 		
+
 		$op=array(
 				'idOrg' => $idOrg,
+				'tipo' => $corporate,
 				'nome' => $nome,
 				'cidade' => $cidade,
 				'telefone' => $telefone,
@@ -45,9 +50,6 @@
 			header("Location: editOrganizacao.php?error='$idOrg'");
 		}
 		else
-			header('Location: entidade.php?sucess=');
+			header('Location: entidade.php?id=$idOrg&sucess=1');
 		
-		echo $org->getNome() ."  TIPO ".$org->getTipo();
-		
-		echo "Inseriu com sucesso";
 	?>

@@ -12,6 +12,7 @@
 			$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 			
 		}
+
 		 
 		/**GETs**/
 		
@@ -19,6 +20,7 @@
 		{
 			return $this->data['idOrg'];
 		}
+		
 		public function getNome()
 		{
 			return $this->data['nome'];
@@ -86,7 +88,29 @@
 		{
 			return $this->data['idUtilizador'];
 		}
+		public function getDataCriacao()
+		{
+			return $this->data['dataCriacao'];
+		}
 		
+		
+		
+		/**
+		** Funcao devolve o nome do utilizador a partir do seu id
+		**/
+		public function getNomeUtilizador()
+		{
+			$result = $this->mysql->query("select user from login where idUser = 23");
+				
+			
+			if ($this->mysql->affected_rows > 0)
+			{
+				$row=$result->fetch_array(MYSQLI_ASSOC);
+				return $row['user'];
+			}
+			else
+				return '';
+		}
 		
 		
 		/**SETS*/
@@ -94,6 +118,11 @@
 		public function setNif( $nif )
 		{
 			$this->data['nif'] = $nif;
+		}
+		
+		public function setNome( $nome )
+		{
+			$this->data['nome'] = $nome;
 		}
 		/**
 		** Devolve um objecto a partir de um array com 
@@ -139,6 +168,10 @@
 			echo $this->data['dataCriacao'].'<br>';
 		}
 		
+		
+		
+		
+		
 		/*
 		** verifica se nif ja existe
 		*/
@@ -150,6 +183,21 @@
 			while( $row=$result->fetch_array(MYSQLI_ASSOC) )
 			{
 					if( $row['nif'] === $this->data['nif'] )
+						return 1;
+			}
+			
+			return 0;
+			
+			
+		}
+		
+		public function verificaNome()
+		{
+			$result = $this->mysql->query("select nome from organizacao");
+			
+			while( $row=$result->fetch_array(MYSQLI_ASSOC) )
+			{
+					if( $row['nome'] === $this->data['nome'] )
 						return 1;
 			}
 			
@@ -175,7 +223,7 @@
 			if( $this->verificaCampos() == -1)
 				return -1;
 			
-			$result = $this->mysql->query("INSERT INTO `organizacao`( `tipo`, `nome`, `nif`, `cidade`, `telefone`, `email`, `morada`,`site`, `sectorActividade`, `descricao`, `nomeResp`, `contactoResp`, `mailResp`, `idUtilizador`, `dataCriacao`) VALUES (4,'".$this->data['nome']."','".$this->data['nif']."','".$this->data['cidade']."','".$this->data['telefone']."','".$this->data['email']."','".$this->data['morada']."','".$this->data['site']."','".$this->data['sectorActividade']."','".$this->data['descricao']."','".$this->data['nomeResp']."','".$this->data['contactoResp']."','".$this->data['emailResp']."','a','".$this->data['dataCriacao']."')");			
+			$result = $this->mysql->query("INSERT INTO `organizacao`( `tipo`, `nome`, `nif`, `cidade`, `telefone`, `email`, `morada`,`site`, `sectorActividade`, `descricao`, `nomeResp`, `contactoResp`, `mailResp`, `idUtilizador`, `dataCriacao`) VALUES (".$this->data['tipo'].",'".$this->data['nome']."','".$this->data['nif']."','".$this->data['cidade']."','".$this->data['telefone']."','".$this->data['email']."','".$this->data['morada']."','".$this->data['site']."','".$this->data['sectorActividade']."','".$this->data['descricao']."','".$this->data['nomeResp']."','".$this->data['contactoResp']."','".$this->data['emailResp']."','a','".$this->data['dataCriacao']."')");			
 			
 			if ( !$result ) {
 				 return -1;
@@ -189,20 +237,24 @@
 		**/
 		public function actualiza()
 		{
-			echo "UPDATE `organizacao` SET `tipo`=1,`nome`='".$this->data['nome']."',".
-											"`nif`='".$this->data['nif']."',`cidade`='".$this->data['cidade']."'".
-											 ",`telefone`='".$this->data['telefone']."',`email`='".$this->data['email']."',".
-											  "`sectorActividade`='".$this->data['sectorActividade']."'".
-											   ",`descricao`='".$this->data['descricao']."',`responsavel`='".$this->data['nomeResp']."'".
-											     ",`contactoResponsavel`='".$this->data['contactoResp']."',`mailResponsavel`='".$this->data['emailResp']."'".
-												   " WHERE idOrg = ".$this->data['idOrg']."<br>";
 			
-			$result = $this->mysql->query("UPDATE `organizacao` SET `tipo`='',`nome`='".$this->data['nome']."',".
+			echo "UPDATE `organizacao` SET `tipo`=".$this->data['tipo'].",`nome`='".$this->data['nome']."',".
 											"`nif`='".$this->data['nif']."',`cidade`='".$this->data['cidade']."'".
 											 ",`telefone`='".$this->data['telefone']."',`email`='".$this->data['email']."',".
+											  "`morada`='".$this->data['morada']."'".
 											  "`sectorActividade`='".$this->data['sectorActividade']."'".
-											   ",`descricao`='".$this->data['descricao']."',`responsavel`='".$this->data['nomeResp']."'".
-											     ",`contactoResponsavel`='".$this->data['contactoResp']."',`mailResponsavel`='".$this->data['emailResp']."'".
+											   ",`descricao`='".$this->data['descricao']."',`nomeResp`='".$this->data['nomeResp']."'".
+											     ",`contactoResp`='".$this->data['contactoResp']."',".
+											     "`mailResponsavel`='".$this->data['emailResp']."'".
+												   " WHERE idOrg = ".$this->data['idOrg']."";
+			$result = $this->mysql->query("UPDATE `organizacao` SET `tipo`=".$this->data['tipo'].",`nome`='".$this->data['nome']."',".
+											"`nif`='".$this->data['nif']."',`cidade`='".$this->data['cidade']."'".
+											 ",`telefone`='".$this->data['telefone']."',`email`='".$this->data['email']."',".
+											  "`morada`='".$this->data['morada']."',".
+											  "`sectorActividade`='".$this->data['sectorActividade']."'".
+											   ",`descricao`='".$this->data['descricao']."',`nomeResp`='".$this->data['nomeResp']."'".
+											     ",`contactoResp`='".$this->data['contactoResp']."',".
+											     "`mailResp`='".$this->data['emailResp']."'".
 												   " WHERE idOrg = ".$this->data['idOrg']."");
 						
 			if (!$result) {
@@ -229,6 +281,66 @@
 			}
 			else
 				return ' ';
+		}
+		
+		
+		/**toString**/
+		
+		public function toString()
+		{
+			
+			$desc = "<p> Nome </p>". $this->getNome()."<br> ";
+			$desc .= "<p>Nif</p> ". $this->getNif()."<br> ";
+			
+			if( $this->getTipo() == 1 )
+				$desc .= "<p>Tipo</p> Corporate <br> ";
+			else
+				$desc .= "<p>Tipo</p> Non-Corporate <br> ";
+			
+			$desc .= "<p>Cidade</p> ". $this->getCidade()."<br> ";
+			$desc .= "<p>Sector de Actividade </p> ". $this->getSectorActividade()."<br> ";
+			
+			if( $this->getTelefone() !== "" )
+				$desc .= "<p>Telefone</p> ". $this->getTelefone()."<br> ";
+			if( $this->getEmail() !== "" )
+				$desc .= "<p>Email</p> ". $this->getEmail()."<br>";
+			
+			if( $this->getMorada() !== "" )
+				$desc .= "<p>Morada</p> ". $this->getMorada()."<br> ";
+			if( $this->getSite() !== "" )
+				$desc .= "<p>Site</p><a href='http://". $this->getSite()."'> ". $this->getSite()."</a><br> ";
+			if( $this->getDescricao() !== "" )
+				$desc .= "<p>Descrição</p> ". $this->getDescricao()."<br> ";
+			if( $this->getNomeResp() !== "" )
+				$desc .= "<p>Nome Responsavel</p> ". $this->getNomeResp()."<br> ";
+			if( $this->getContactoResp() !== "" )
+				$desc .= "<p>Contacto Responsavel</p> ". $this->getContactoResp()."<br> ";
+			if( $this->getMailResp() !== "" )
+				$desc .= "<p>Mail Responsavel</p> ". $this->getMailResp()."<br> ";
+			
+			
+			
+			$desc .= "<div id=extra_infoO>";
+			$result = $this->mysql->query("select DATEDIFF(data,now()),r.* from reuniao r where r.idOrg = ".$this->getIdOrg()." and DATEDIFF(r.data,now()) BETWEEN 0 AND 30 order by data limit 3");
+			
+			if ( $result->num_rows != 0)
+			{
+				$desc .= "<h1>Proximas Reunioes</h1>";
+				while( $row = $result->fetch_array(MYSQLI_ASSOC) )
+				{
+					$desc .= "<p>Assunto</p> ". $row['assunto'] ."<br> ";
+					$desc .= "<p>data</p> ". $row['data'] ."  ". $row['hora'] ."<br> ";
+					$desc .= '<div class="stripe-separator1"><!--  --></div>';
+					
+				}
+			}
+			else
+				$desc .= "Sem reuniões marcadas";
+				
+			$desc .= "</div>";
+
+			
+	        return $desc;
 		}
 	
 	}

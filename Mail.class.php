@@ -59,7 +59,7 @@
 			
 			$sql = "INSERT INTO `mail`( `idOrg`, `fromM`, `toM`, `subject`, `message`, `date`, `idUser`) VALUES (40,'$this->from','$this->to','$this->subject','$this->body','2011-10-10',18)";
 			
-			echo $sql,'<br>';
+			//	echo $sql,'<br>';
 			$result = $this->mysql->query($sql);
 			
 			if (!$result) {
